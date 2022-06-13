@@ -1,3 +1,4 @@
+
 # Shortlink system
 short a link, for educational purposes only
 
@@ -9,3 +10,7 @@ short a link, for educational purposes only
 - Database: MySQL
 - CSS Framework: Bootstrap 5 (no jQuery)
 - JavaScript lib: axios
+
+## How to use
+> `# composer install`
+> `# php spark migrate`
