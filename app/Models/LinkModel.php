@@ -22,7 +22,7 @@ class LinkModel extends Model
 
     protected $validationRules    = [
         'link_key'     => 'required',
-        'destination_link'     => 'required|valid_url',
+        'destination_link'     => 'required|valid_url_strict',
         'ipaddr_created' => 'required|valid_ip'
     ];
     protected $validationMessages = [];

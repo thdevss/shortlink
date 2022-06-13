@@ -19,24 +19,7 @@ class Link extends ResourceController
         helper(["app", "text"]);
 
     }
-
-    public function show($id = null)
-    {
-        // save data to viewer
-        $row = $this->link->where('link_key', $id)->select('id, destination_link')->first();
-
-        $this->viewer->insert([
-            'link_id' => $row['id'],
-            'v_ipaddr' => getClientIpAddress(),
-            'raw_referrer' => '',
-            'raw_useragent' => $_SERVER['HTTP_USER_AGENT']
-        ]);
-
-        unset($row['id']);
-        return $this->respond($row);
-
-    }
-
+    
     public function create()
     {
 

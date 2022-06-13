@@ -55,6 +55,8 @@ if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
 }
 
 
-$routes->resource('link', ['only' => ['create', 'show']]);
+$routes->resource('link', ['only' => ['create']]);
+$routes->get('/(:alphanum)', 'Home::goToLink/$1');
+
 // $routes->resource('viewer', ['only' => ['create']]);
 

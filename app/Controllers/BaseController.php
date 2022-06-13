@@ -46,6 +46,9 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
+        $this->link  = model('App\Models\LinkModel');
+        $this->viewer  = model('App\Models\ViewerModel');
+        helper(["app", "text"]);
 
         // E.g.: $this->session = \Config\Services::session();
     }

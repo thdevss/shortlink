@@ -1,7 +1,11 @@
 # Shortlink system
-short a link
-------
+short a link, for educational purposes only
+
+## Example
+> https://s.14devlab.co
 
 ## Tech stack
-- CodeIgniter 4
-- MySQL
+- PHP Framework: CodeIgniter 4
+- Database: MySQL
+- CSS Framework: Bootstrap 5 (no jQuery)
+- JavaScript lib: axios
