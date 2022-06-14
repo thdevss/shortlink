@@ -56,7 +56,17 @@ if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
 
 
 $routes->resource('link', ['only' => ['create']]);
-$routes->get('/(:alphanum)', 'Home::goToLink/$1');
+
+
+$routes->get('/backoffice/login', 'Backoffice::login');
+$routes->post('/backoffice/login', 'Backoffice::login');
+$routes->get('/backoffice/logout', 'Backoffice::logout', ['filter' => 'authGuard']);
+
+$routes->get('/backoffice/dashboard', 'Backoffice::dashboard', ['filter' => 'authGuard']);
+$routes->get('/backoffice/link', 'Backoffice::link_lists', ['filter' => 'authGuard']);
+$routes->get('/backoffice/link/(:num)', 'Backoffice::link_detail/$1', ['filter' => 'authGuard']);
+
+// $routes->get('/(:alphanum)', 'Home::goToLink/$1');
 
 // $routes->resource('viewer', ['only' => ['create']]);
 
