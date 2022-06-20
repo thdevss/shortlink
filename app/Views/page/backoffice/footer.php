@@ -20,7 +20,6 @@
 		</div>
 	</div>
 
-    <script src="https://unpkg.com/@adminkit/core@latest/dist/js/app.js"></script>
 
 </body>
 

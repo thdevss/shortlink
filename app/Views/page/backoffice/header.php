@@ -18,6 +18,8 @@
             font-family: Kanit !important;
         }
     </style>
+    <script src="https://unpkg.com/@adminkit/core@latest/dist/js/app.js"></script>
+
 </head>
 
 <body>
