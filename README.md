@@ -9,7 +9,7 @@ short a link, for educational purposes only
 - PHP Framework: CodeIgniter 4
 - Database: MySQL
 - CSS Framework: Bootstrap 5 (no jQuery)
-- JavaScript lib: axios
+- JavaScript lib: axios, sweetalert2
 
 ## How to use
 > `# composer install`
