@@ -29,16 +29,45 @@ class ViewerModel extends Model
 
     public function get_browser_summary()
     {
-        return $this->query("SELECT IFNULL(v_ua_browser, 'Unknown') as name, count(*) as cnt FROM `tb_viewer` group by v_ua_browser order by cnt desc")->getResultArray();
+        $userModel = model('App\Models\UserModel');
+
+        $this->select("IFNULL(v_ua_browser, 'Unknown') as name, count(*) as cnt");
+        $this->groupBy("v_ua_browser");
+        $this->orderBy("cnt", "desc");
+        
+        if(!$userModel->is_admin()) {
+            $user_id = session()->get('user_id');
+            $this->where("`link_id` IN (SELECT `id` FROM `tb_link` WHERE user_id = '".$user_id."')", NULL, FALSE);
+        }
+
+        return $this->findAll();
     }
 
     public function total_visitors()
     {
-        return $this->query("SELECT count(*) as cnt FROM `tb_viewer`")->getResultArray()[0]['cnt'];
+        $userModel = model('App\Models\UserModel');
+
+        $this->select("count(*) as cnt");
+        if(!$userModel->is_admin()) {
+            $user_id = session()->get('user_id');
+            $this->where("`link_id` IN (SELECT `id` FROM `tb_link` WHERE user_id = '".$user_id."')", NULL, FALSE);
+        }
+
+        return $this->first()['cnt'];
     }
 
     public function visitors_in_7days()
     {
-        return $this->query("SELECT DATE(created_at) as date, count(*) as cnt FROM `tb_viewer` where created_at > now() - INTERVAL 15 day group by DATE(created_at)")->getResultArray();
+        $userModel = model('App\Models\UserModel');
+
+        $this->select("DATE(created_at) as date, count(*) as cnt");
+        $this->where('created_at >', 'now() - interval 15 day');
+        $this->groupBy('DATE(created_at)');
+        if(!$userModel->is_admin()) {
+            $user_id = session()->get('user_id');
+            $this->where("`link_id` IN (SELECT `id` FROM `tb_link` WHERE user_id = '".$user_id."')", NULL, FALSE);
+        }
+
+        return $this->findAll();
     }
 }

@@ -28,4 +28,9 @@ class UserModel extends Model
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = true;
+
+    public function is_admin()
+    {
+        return (boolean) $this->select('is_admin')->where('session_key', session()->get('session_key'))->first()['is_admin'];
+    }
 }
