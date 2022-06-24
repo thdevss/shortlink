@@ -13,7 +13,7 @@ class Home extends BaseController
     {
         // save data to viewer
         $row = $this->link->where('link_key', $link_key)->select('id, destination_link')->first();
-        if($row['destination_link']) {
+        if(@$row['destination_link']) {
             $this->viewer->insert([
                 'link_id' => $row['id'],
                 'v_ipaddr' => getClientIpAddress(),
@@ -26,7 +26,8 @@ class Home extends BaseController
             return;
         }
 
-        $this->output->set_status_header('404');
+        $this->response->setStatusCode(404, 'Nope. Not here.');
+
         return;
 
         

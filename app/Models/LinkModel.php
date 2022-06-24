@@ -27,4 +27,14 @@ class LinkModel extends Model
     ];
     protected $validationMessages = [];
     protected $skipValidation     = false;
+
+    public function total_links()
+    {
+        return $this->query("SELECT count(*) as cnt FROM `tb_link`")->getResultArray()[0]['cnt'];
+    }
+
+    public function get_top10_links()
+    {
+        return $this->query("SELECT tb_link.*, IF(tb_link.user_id != 0, (SELECT email_address FROM tb_user WHERE id = tb_link.user_id LIMIT 1) , '-- GUEST --') as creator, count(tb_viewer.id) as total_visitors FROM `tb_link` JOIN tb_viewer ON tb_viewer.link_id = tb_link.id GROUP BY tb_link.id ORDER BY total_visitors DESC")->getResultArray();
+    }
 }

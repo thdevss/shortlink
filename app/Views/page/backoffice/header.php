@@ -41,11 +41,11 @@
                         </a>
 					</li>
 
-					<li class="sidebar-item">
+					<!-- <li class="sidebar-item">
 						<a class="sidebar-link" href="<?php echo site_url('/backoffice/profile');?>">
                             <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
                         </a>
-					</li>
+					</li> -->
 
                     <li class="sidebar-header">
 						Link
@@ -58,11 +58,12 @@
 					</li>
 
                     <li class="sidebar-item">
-						<a class="sidebar-link" href="<?php echo site_url('/backoffice/link?new');?>">
+						<a class="sidebar-link" href="#" data-bs-toggle="modal" data-bs-target="#createLinkModal">
                             <i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">Create new link</span>
                         </a>
 					</li>
 
+					<?php if($userdata['is_admin'] == "1") : ?>
                     <li class="sidebar-header">
 						Administrator
 					</li>
@@ -72,7 +73,7 @@
                             <i class="align-middle" data-feather="users"></i> <span class="align-middle">Users</span>
                         </a>
 					</li>
-					
+					<?php ;endif ?>
 				</ul>
 
 				
@@ -103,6 +104,8 @@
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a> -->
+                                <a class="dropdown-item" href="#">Level: <?php echo ($userdata['is_admin'] == "1") ? "Admin" : "User";?></a>
+
                                 <a class="dropdown-item" href="#">Last Login: <?php echo $userdata['updated_at'];?></a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<?php echo site_url('/backoffice/logout');?>">Log out</a>

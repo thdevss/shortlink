@@ -4,12 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.84.0">
+    <meta name="description" content="Short a link.">
     <title>Short a link.</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/navbar-bottom/">
 
     
 
@@ -93,6 +89,12 @@
 
 
         function short_a_link() {
+
+            if(document.querySelector('#destination_link').value == '') {
+                alert('error!')
+                return;
+            }
+
             document.querySelector("#btn-short .spinner-border").style.display = 'inline-block'
             document.querySelector("#btn-short .txt").textContent = 'Loading'
 

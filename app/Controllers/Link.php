@@ -9,14 +9,18 @@ class Link extends ResourceController
 {
     protected $link;
     protected $viewer;
+    protected $user;
+
 
     protected $format    = 'json';
     // Prefered way
     public function __construct()
     {
+        $this->user  = model('App\Models\UserModel');
+
         $this->link  = model('App\Models\LinkModel');
         $this->viewer  = model('App\Models\ViewerModel');
-        helper(["app", "text"]);
+        helper(["app", "text", "session"]);
 
     }
     
@@ -26,6 +30,11 @@ class Link extends ResourceController
         $saveData = (array) $this->request->getJSON();
         $saveData['ipaddr_created'] = getClientIpAddress();
         $saveData['link_key'] = random_string('crypto', 8);
+
+        // if log-in, added user_id
+        if(session()->has('user_id')) {
+            $saveData['user_id'] = session()->get('user_id');
+        }
 
         $created = $this->link->insert($saveData);
 

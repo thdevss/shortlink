@@ -28,6 +28,12 @@ class AddTbUser extends Migration
                 'constraint' => '256',
                 'null' => true,
             ],
+            'is_admin' => [
+                'type'       => 'INT',
+                'constraint' => '1',
+                'default_value' => 0,
+                'null' => false,
+            ],
             'created_at' => [
                 'type'    => 'TIMESTAMP',
                 'null' => true,

@@ -37,6 +37,7 @@ class Backoffice extends BaseController
                     $SESSION_KEY = random_string('crypto', 32);
                     $this->user->where('email_address', $email)->set('session_key', $SESSION_KEY)->update();
                     $ses_data = [  
+                        'user_id' => $data['id'],
                         'session_key' => $SESSION_KEY,
                         'isLoggedIn' => TRUE
                     ];
@@ -75,11 +76,31 @@ class Backoffice extends BaseController
 
     public function dashboard()
     {
+        $stats = [
+            'link' => $this->link->total_links(),
+            'visitors' => $this->viewer->total_visitors(),
+            'browsers' => $this->viewer->get_browser_summary(),
+            'top10_links' => $this->link->get_top10_links(),
+            'visitors_in_7days' => [
+                "label" => [],
+                "val" => []
+            ]
+        ];
+
+        foreach($this->viewer->visitors_in_7days() as $r) {
+            array_push($stats['visitors_in_7days']['label'], $r['date']);
+            array_push($stats['visitors_in_7days']['val'], $r['cnt']);
+        }
+
+        
+
         echo view('page/backoffice/header', [ 
             'userdata' => $this->userdata(),
             'head_title' => 'Dashboard'
         ]);
-        echo view('page/backoffice/dashboard');
+        echo view('page/backoffice/dashboard', [
+            'stats' => $stats
+        ]);
         echo view('page/backoffice/footer');
         return;
 
@@ -101,7 +122,7 @@ class Backoffice extends BaseController
 
     private function userdata()
     {
-        return $this->user->select('email_address, updated_at')->where('session_key', session()->get('session_key'))->first();
+        return $this->user->select('email_address, is_admin, updated_at')->where('session_key', session()->get('session_key'))->first();
     }
 
 
