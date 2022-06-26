@@ -108,7 +108,15 @@ class Backoffice extends BaseController
 
     public function link_lists()
     {
-        echo "<h3>LINK LISTS</h3>";
+        echo view('page/backoffice/header', [ 
+            'userdata' => $this->userdata(),
+            'head_title' => 'All link'
+        ]);
+        echo view('page/backoffice/link_lists', [
+            // 'stats' => $stats
+        ]);
+        echo view('page/backoffice/footer');
+        return;
 
         // return view('page/backoffice/login');
     }

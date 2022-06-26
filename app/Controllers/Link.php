@@ -55,4 +55,66 @@ class Link extends ResourceController
         ]);
     }
 
+    public function delete($link_id = null)
+    {
+        if(!$link_id) {
+            $this->failNotFound();
+            return;
+        }
+
+        if(!session()->has('user_id')) {
+            $this->failUnauthorized('please login before delete this.');
+            return;
+        }
+
+        // check if owner this link?
+        $user_id = session()->get('user_id');
+        if(!$this->link->isOwner($link_id)) {
+            $this->failForbidden("only owner can delete this once.");
+            return;
+        }
+
+        $deleted = $this->link->delete($link_id);
+
+        if(!$deleted) {
+            return $this->respond([
+                'status' => false,
+                'data' => $this->link->errors(),
+                'message' => 'failed.'
+            ]);
+        }
+
+        return $this->respond([
+            'status' => true,
+            'message' => 'deleted.'
+        ]);
+
+    }
+
+        
+    public function index()
+    {
+
+        if(!session()->has('user_id')) {
+            $this->failUnauthorized('please login before delete this.');
+            return;
+        }
+
+        $rows = $this->link->getAll();
+
+        if(!$rows) {
+            return $this->respond([
+                'status' => false,
+                'data' => $this->link->errors(),
+                'message' => 'failed.'
+            ]);
+        }
+
+        return $this->respond([
+            'status' => true,
+            'data' => $rows,
+            'message' => 'okay.'
+        ]);
+
+    }
 }

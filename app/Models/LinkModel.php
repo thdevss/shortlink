@@ -11,14 +11,14 @@ class LinkModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType     = 'array';
-    protected $useSoftDeletes = false;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['destination_link', 'link_key', 'remark', 'ipaddr_created', 'user_id'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
-    protected $deletedField  = '';
+    protected $deletedField  = 'deleted_at';
 
     protected $validationRules    = [
         'link_key'     => 'required',
@@ -42,6 +42,21 @@ class LinkModel extends Model
 
     }
 
+
+    public function getAll()
+    {
+        $userModel = model('App\Models\UserModel');
+
+        $this->select("*");
+        if(!$userModel->is_admin()) {
+            $user_id = session()->get('user_id');
+            $this->where('user_id', $user_id);
+        }
+
+        return $this->findAll();
+
+    }
+
     public function get_top10_links()
     {
         $userModel = model('App\Models\UserModel');
@@ -57,7 +72,26 @@ class LinkModel extends Model
         }
 
         return $this->findAll();
+    }
+
+    public function isOwner($link_id)
+    {
+        $userModel = model('App\Models\UserModel');
+
+        if($userModel->is_admin()) {
+            return true; // bypass all if ur admin.
+        }
+
+        $this->select("count(*) as cnt");
+        $this->where('user_id', session()->get('user_id'));
+        $this->where('id', $link_id);
 
 
+        if($this->first()['cnt'] == 1) {
+            return true;
+        }
+
+        return false;
+        
     }
 }

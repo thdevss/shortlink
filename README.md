@@ -8,8 +8,10 @@ short a link, for educational purposes only
 ## Tech stack
 - PHP Framework: CodeIgniter 4
 - Database: MySQL
+- PHP library: Browser Detection
 - CSS Framework: Bootstrap 5 (no jQuery)
-- JavaScript lib: axios, sweetalert2
+- Frontend Template: AdminKit
+- JavaScript library: axios, sweetalert2
 
 ## How to use
 > `# composer install`

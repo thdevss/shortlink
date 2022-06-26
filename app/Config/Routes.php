@@ -55,7 +55,7 @@ if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
 }
 
 
-$routes->resource('link', ['only' => ['create']]);
+$routes->resource('link', ['only' => ['create', 'index', 'delete']]);
 
 
 $routes->get('/backoffice/login', 'Backoffice::login');
@@ -66,10 +66,10 @@ $routes->get('/backoffice/dashboard', 'Backoffice::dashboard', ['filter' => 'aut
 $routes->get('/backoffice/link', 'Backoffice::link_lists', ['filter' => 'authGuard']);
 
 $routes->get('/backoffice/link/(:num)', 'Backoffice::link_detail/$1', ['filter' => 'authGuard']);
-$routes->get('/backoffice/profile', 'Backoffice::user_profile', ['filter' => 'adminGuard']);
+// $routes->get('/backoffice/profile', 'Backoffice::user_profile', ['filter' => 'adminGuard']);
 
-$routes->get('/backoffice/admin/users', 'Backoffice::users_lists', ['filter' => 'adminGuard']);
-$routes->get('/backoffice/admin/users/(:num)', 'Backoffice::user_detail/$1', ['filter' => 'adminGuard']);
+// $routes->get('/backoffice/admin/users', 'Backoffice::users_lists', ['filter' => 'adminGuard']);
+// $routes->get('/backoffice/admin/users/(:num)', 'Backoffice::user_detail/$1', ['filter' => 'adminGuard']);
 
 
 $routes->get('/(:alphanum)', 'Home::goToLink/$1');
