@@ -19,5 +19,7 @@ Password: P@ssw0rd
 - JavaScript library: axios, sweetalert2, datatable
 
 ## How to use
-```# composer install```
-```# php spark migrate```
+```
+# composer install
+# php spark migrate
+```
