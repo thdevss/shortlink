@@ -55,7 +55,7 @@ if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
 }
 
 
-$routes->resource('link', ['only' => ['create', 'index', 'delete']]);
+$routes->resource('link', ['only' => ['create', 'index', 'delete', 'show']]);
 
 
 $routes->get('/backoffice/login', 'Backoffice::login');

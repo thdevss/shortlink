@@ -117,13 +117,32 @@ class Backoffice extends BaseController
         ]);
         echo view('page/backoffice/footer');
         return;
-
-        // return view('page/backoffice/login');
     }
 
-    public function link_detail($id = null)
+    public function link_detail($link_id = null)
     {
-        echo "<h3>LINK DETAIL</h3>";
+        if(!$link_id) {
+            $this->failNotFound();
+            return;
+        }
+
+        // check if owner this link?
+        $user_id = session()->get('user_id');
+        if(!$this->link->isOwner($link_id)) {
+            $this->failForbidden("only owner can delete this once.");
+            return;
+        }
+
+        echo view('page/backoffice/header', [ 
+            'userdata' => $this->userdata(),
+            'head_title' => 'Link detail'
+        ]);
+        echo view('page/backoffice/link_detail', [
+            'LINK_ID' => $link_id,
+            'link' => $this->link->where('id', $link_id)->first()
+        ]);
+        echo view('page/backoffice/footer');
+        return;
 
         // return view('page/backoffice/login');
     }

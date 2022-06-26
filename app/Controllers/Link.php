@@ -117,4 +117,40 @@ class Link extends ResourceController
         ]);
 
     }
+
+    public function show($link_id = null)
+    {
+
+        if(!session()->has('user_id')) {
+            $this->failUnauthorized('please login before delete this.');
+            return;
+        }
+
+        if(!$this->link->isOwner($link_id)) {
+            $this->failForbidden("only owner can view this once.");
+            return;
+        }
+
+        $rows = [];
+        if($this->request->getGet('data') == 'visitors') {
+            $rows = $this->viewer->where('link_id', $link_id)->findAll();
+        } else {
+            $rows = $this->link->where('id', $link_id)->first();
+        }
+
+        if(!$rows) {
+            return $this->respond([
+                'status' => false,
+                'data' => $this->link->errors(),
+                'message' => 'failed.'
+            ]);
+        }
+
+        return $this->respond([
+            'status' => true,
+            'data' => $rows,
+            'message' => 'okay.'
+        ]);
+
+    }
 }
