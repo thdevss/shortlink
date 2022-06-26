@@ -40,6 +40,18 @@ class AddTbViewer extends Migration
                 'type'       => 'TEXT',
                 'null' => true,
             ],
+            'v_ua_os' => [
+                'type'       => 'TEXT',
+                'null' => true,
+            ],
+            'v_ua_browser' => [
+                'type'       => 'TEXT',
+                'null' => true,
+            ],
+            'v_ua_device' => [
+                'type'       => 'TEXT',
+                'null' => true,
+            ],
             'created_at' => [
                 'type'    => 'TIMESTAMP',
                 'null' => true,
